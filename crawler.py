@@ -18,15 +18,14 @@ class RedditSpider(BaseSpider):
     def parse(self, response):
         # print(response.body)
         page_soup = BeautifulSoup(response.body,'html.parser')
-        for div in page_soup.find_all('div',{"class":"md"}):
-            div_soup = BeautifulSoup(str(div),'html.parser')
-            for p in div_soup.find_all('p'):
-                print(BeautifulSoup(str(p),'html.parser').get_text())
-            print('')
-        # hxs = HtmlXPathSelector(response)
-        # for div in hxs.select('//div').extract():
-        #     print(div)
-        #
-        # # print(response.body)
-        # # for url in hxs.select('//a/@href').extract():
-        # #     print(url)
+        for container_div in page_soup.find_all('div',{"class":"Post__commentContainer"}):
+            container_soup = BeautifulSoup(str(container_div),'html.parser')
+
+            for username_div in container_soup.find_all('a'):
+                print(BeautifulSoup(str(username_div),'html.parser').get_text())
+
+            for text_div in container_soup.find_all('div',{'class':'md'}):
+                text_soup = BeautifulSoup(str(text_div),'html.parser')
+                for p in text_soup.find_all('p'):
+                    print(BeautifulSoup(str(p),'html.parser').get_text())
+                print('')
