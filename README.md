@@ -1,3 +1,3 @@
 # reddit-stalker
 
-Parses list of user and returns users' comments
+Parses list of usernames and returns users' comments
